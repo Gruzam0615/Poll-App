@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PingPong, PingPong2 } from "@/app/api/poll_server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,17 +18,32 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
-  children,
+async function getPingPongData() {
+  const checkPingPong = await PingPong2();
+  return checkPingPong;
+}
+
+export default async function RootLayout({
+  children, ablebackend
 }: Readonly<{
   children: React.ReactNode;
+  ablebackend: React.ReactNode;
 }>) {
-  return (
+  const checkPingPong = await getPingPongData();
+  console.log(checkPingPong);
+  
+  return (    
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* {children} */}
+        {/* {TestStatus() === true ? test1 : test2} */}
+        {
+          checkPingPong?.data === "true" ?
+            ablebackend:
+            children
+        }
       </body>
     </html>
   );
