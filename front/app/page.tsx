@@ -12,12 +12,8 @@ export default function Home() {
 
   return (
     <div className="container mx-auto pt-80 justify-items-center">
-      <h1 className="text-6xl">투표 결과</h1>
-      <BarChart className="" width={1080} height={360} data={data} barSize={60}>
-        <Bar dataKey="countValue" fill="#0AE" label={{ position: "center" }}/>
-        <XAxis dataKey="name" axisLine={false} tickLine={false} />
-      </BarChart>
-      <Link href="/pollingpage">
+      <h1 className="text-6xl">앱 메인</h1>      
+      <Link href="/poll">
         <Button className="my-5" color="light" >투표 페이지로</Button>
       </Link>
     </div>

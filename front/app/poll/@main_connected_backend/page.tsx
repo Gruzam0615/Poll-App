@@ -13,7 +13,7 @@ export default function Test1() {
                 {/* <Bar dataKey="countValue" fill="#0AE" label={{ position: "center" }} /> */}
                 {/* <XAxis dataKey="name" axisLine={false} tickLine={false} /> */}
             {/* </BarChart> */}
-            <Link href="/pollingpage">
+            <Link href="/polling">
                 <Button className="my-5" color="light" >투표 페이지로</Button>
             </Link>
         </div>
