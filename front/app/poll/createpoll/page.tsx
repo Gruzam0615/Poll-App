@@ -6,25 +6,31 @@ import { useRef, useState } from "react";
 
 export default function Page() {
 
-  const [candidateList, setCandidateList] = useState([
+  const [pollName, setPollName] = useState("");
+  const [pollCandidateName, setpollCandidateName] = useState("");
+  const [pollCandidateList, setpollCandidateList] = useState([
     {
-      "candidateName": "후보1",
+      "pollCandidateName": "후보1",
       "pollCount": 0,
     }
   ]);
-  const [ candidateName, setCandidateName ] = useState("");
-  const onChangeCandidateName = (e: any) => {
-    setCandidateName(e.target.value);
+  const [sendData, setSendData] = useState({});
+
+  const onChangepollCandidateName = (e: any) => {
+    setpollCandidateName(e.target.value);
+  }
+  const onChangePollName = (e: any) => {
+    setPollName(e.target.value);
   }
 
   const CandidateAdd = () => {
-    if(candidateName !== "") {
+    if (pollCandidateName !== "") {
       const member = {
-        "candidateName": candidateName,
+        "pollCandidateName": pollCandidateName,
         "pollCount": 0
       }
-      setCandidateList([...candidateList, member]);
-      setCandidateName("");
+      setpollCandidateList([...pollCandidateList, member]);
+      setpollCandidateName("");
     } else {
       alert("후보 이름을 입력해 주세요.")
     }
@@ -32,10 +38,15 @@ export default function Page() {
 
   const submitNewPoll = () => {
     console.log("Submited");
-    console.log(candidateName)
-    candidateList?.map(item => {
+    console.log(pollName);
+    pollCandidateList?.map(item => {
       console.log(item);
     })
+    setSendData({
+      "pollName": pollName,
+      "pollCandidateList": pollCandidateList,
+    })
+    console.log(`sendData: ${sendData}`);
   }
 
   return (
@@ -46,30 +57,30 @@ export default function Page() {
           <div className="mb-2 block">
             <Label htmlFor="polltitle" value="투표명" />
           </div>
-          <TextInput id="polltitle" type="text" placeholder="투표명" required shadow />
+          <TextInput id="polltitle" type="text" placeholder="투표명" value={pollName} onChange={onChangePollName} required shadow />
         </div>
-        <div> 
+        <div>
           <div className="mb2-block">
-            <Label htmlFor="candidatelist" value="후보 목록" />            
+            <Label htmlFor="pollCandidateList" value="후보 목록" />
           </div>
           <div className="mb2-block">
             <Button color="dark" onClick={CandidateAdd}>후보 추가</Button>
           </div>
           <div className="mb2-block">
             <ul>
-            {
-              candidateList?.map((item, index) => (
-                <li key={index}>{item.candidateName}</li>
-              ))
-            }
+              {
+                pollCandidateList?.map((item, index) => (
+                  <li key={index}>{item.pollCandidateName}</li>
+                ))
+              }
             </ul>
           </div>
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="candidateName" value="후보 이름" />
+            <Label htmlFor="pollCandidateName" value="후보 이름" />
           </div>
-          <TextInput id="candidateName" type="text" value={candidateName} onChange={onChangeCandidateName} shadow />
+          <TextInput id="pollCandidateName" type="text" value={pollCandidateName} onChange={onChangepollCandidateName} shadow />
         </div>
 
         {/* <div className="flex items-center gap-2">
