@@ -50,22 +50,24 @@ export default function Page() {
   }
 
   return (
-    <div className="container mx-auto pt-80 justify-items-center">
-      <h1 className="text-6xl">새로운 투표</h1>
-      <form className="flex max-w-md flex-col gap-4" action={submitNewPoll}>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="polltitle" value="투표명" />
-          </div>
-          <TextInput id="polltitle" type="text" placeholder="투표명" value={pollName} onChange={onChangePollName} required shadow />
+    <div className="grid grid-rows-4 text-center items-baseline">
+      <div className="grid grid-cols-1 w-full p-5">
+        <h1 className="text-6xl">새로운 투표</h1>
+      </div>
+      <form className="" action={submitNewPoll}>
+        <div className="grid grid-cols-2 w-full p-5">
+            <div className="col-auto">
+              <Label htmlFor="polltitle" value="투표명" />
+            </div>
+            <div className="col-auto">
+              <TextInput id="polltitle" type="text" placeholder="투표명" value={pollName} onChange={onChangePollName} required shadow />
+            </div>
+
         </div>
-        <div>
-          <div className="mb2-block">
-            <Label htmlFor="pollCandidateList" value="후보 목록" />
-          </div>
-          <div className="mb2-block">
-            <Button color="dark" onClick={CandidateAdd}>후보 추가</Button>
-          </div>
+        {/* <div className="grid grid-cols-1 w-full p-5">
+          <Label htmlFor="pollCandidateList" value="후보 목록" />
+          <Button color="dark" onClick={CandidateAdd}>후보 추가</Button>
+        </div>
           <div className="mb2-block">
             <ul>
               {
@@ -81,7 +83,7 @@ export default function Page() {
             <Label htmlFor="pollCandidateName" value="후보 이름" />
           </div>
           <TextInput id="pollCandidateName" type="text" value={pollCandidateName} onChange={onChangepollCandidateName} shadow />
-        </div>
+        </div> */}
 
         {/* <div className="flex items-center gap-2">
           <Checkbox id="agree" />
@@ -94,10 +96,6 @@ export default function Page() {
         </div> */}
         <Button type="submit">투표 시작하기</Button>
       </form>
-
-      {/* <Link href="/poll/createpoll">
-        <Button className="my-5" color="light">투표 시작</Button>
-      </Link> */}
     </div>
   );
 }
