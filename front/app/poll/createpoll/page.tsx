@@ -59,7 +59,7 @@ export default function Page() {
           </div>
           <div className="col-1 text-center self-center hover:font-bold">
             <h6 className="text-xl">
-              <Link href={"/poll/createpoll/addcandidlist"}>후보 추가</Link> 
+              <Link href={"/poll/createpoll/addcandidate"}>후보 추가</Link> 
             </h6>
           </div>         
         </div>
