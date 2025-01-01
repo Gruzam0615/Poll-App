@@ -23,19 +23,6 @@ export default function Page() {
     setPollName(e.target.value);
   }
 
-  const CandidateAdd = () => {
-    if (pollCandidateName !== "") {
-      const member = {
-        "pollCandidateName": pollCandidateName,
-        "pollCount": 0
-      }
-      setpollCandidateList([...pollCandidateList, member]);
-      setpollCandidateName("");
-    } else {
-      alert("후보 이름을 입력해 주세요.")
-    }
-  }
-
   const submitNewPoll = () => {
     console.log("Submited");
     console.log(pollName);
@@ -50,52 +37,38 @@ export default function Page() {
   }
 
   return (
-    <div className="grid grid-rows-4 text-center items-baseline">
-      <div className="grid grid-cols-1 w-full p-5">
+    <div className="grid grid-rows-4 pt-5 pb-5">
+      <div className="grid grid-cols-1 w-full text-center self-center">
         <h1 className="text-6xl">새로운 투표</h1>
       </div>
-      <form className="" action={submitNewPoll}>
-        <div className="grid grid-cols-2 w-full p-5">
-            <div className="col-auto">
-              <Label htmlFor="polltitle" value="투표명" />
-            </div>
-            <div className="col-auto">
-              <TextInput id="polltitle" type="text" placeholder="투표명" value={pollName} onChange={onChangePollName} required shadow />
-            </div>
-
+      <div className="grid grid-cols-4 w-full self-center">
+        <div className="col-1 text-end self-center mr-5">
+          <Label htmlFor="polltitle" value="투표명" />
         </div>
-        {/* <div className="grid grid-cols-1 w-full p-5">
-          <Label htmlFor="pollCandidateList" value="후보 목록" />
-          <Button color="dark" onClick={CandidateAdd}>후보 추가</Button>
+        <div className="col-span-2">
+          <TextInput id="polltitle" type="text" placeholder="" value={pollName} onChange={onChangePollName} required shadow />
         </div>
-          <div className="mb2-block">
-            <ul>
-              {
-                pollCandidateList?.map((item, index) => (
-                  <li key={index}>{item.pollCandidateName}</li>
-                ))
-              }
-            </ul>
+      </div>      
+      <div className="grid grid-cols-1 text-center self-center">
+        <div className="grid-row">
+          <div className="col-1 text-center self-center">
+            <h3 className="text-4xl">후보 목록</h3>
           </div>
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="pollCandidateName" value="후보 이름" />
+          <div className="col-1 text-center self-center">
+            <h4 className="text-3xl">후보 1</h4>
           </div>
-          <TextInput id="pollCandidateName" type="text" value={pollCandidateName} onChange={onChangepollCandidateName} shadow />
-        </div> */}
-
-        {/* <div className="flex items-center gap-2">
-          <Checkbox id="agree" />
-          <Label htmlFor="agree" className="flex">
-            I agree with the&nbsp;
-            <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
-              terms and conditions
-            </Link>
-          </Label>
-        </div> */}
-        <Button type="submit">투표 시작하기</Button>
-      </form>
+          <div className="col-1 text-center self-center hover:font-bold">
+            <h6 className="text-xl">
+              <Link href={"/poll/createpoll/addcandidlist"}>후보 추가</Link> 
+            </h6>
+          </div>         
+        </div>
+      </div>
+      <div className="grid grid-cols-4 text-center self-center">
+        <div className="col-start-2 col-span-2 bg-slate-400 hover:bg-slate-800 hover:text-white" onClick={submitNewPoll}>
+          투표 시작
+        </div>
+      </div>
     </div>
   );
 }
