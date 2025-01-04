@@ -8,7 +8,7 @@ import { Bar, BarChart, XAxis } from "recharts";
 import { pollResultAtom } from "@/app/store/pollingAtom";
 
 export default function Page() {
-  const [ data, setData ] = useAtom(pollResultAtom);
+  // const [ data, setData ] = useAtom(pollResultAtom);
 
   return (
     <div className="grid grid-rows-4 text-center items-baseline">

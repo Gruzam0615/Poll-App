@@ -1,43 +1,41 @@
 "use client";
 
-import { Button, Checkbox, Label, List, TextInput } from "flowbite-react";
+import { candidateListAtom } from "@/app/store/pollingAtom";
+import { Button, Checkbox, Label, List, Radio, TextInput } from "flowbite-react";
+import { useAtom } from "jotai";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export default function Page() {
 
+  /**
+   * pollName: 투표 이름
+   * pollCandidateList: 투표 대상인 후보의 목록
+   * selectedCandidate: 현재 투표에서 선택된 후보의 값
+   */
   const [pollName, setPollName] = useState("");
-  const [pollCandidateName, setpollCandidateName] = useState("");
-  const [pollCandidateList, setpollCandidateList] = useState([
-    {
-      "pollCandidateName": "후보1",
-      "pollCount": 0,
-    }
-  ]);
-  const [sendData, setSendData] = useState({});
+  const [pollCandidateList, setpollCandidateList] = useAtom(candidateListAtom);
+  const [ selectedCandidate, setSelectedCandidate ] = useState("");
+  const [ submitData, setSubmitData ] = useState({
+    "pollName": "",
+    "pollCandidateList": []
+  });
 
-  const onChangepollCandidateName = (e: any) => {
-    setpollCandidateName(e.target.value);
-  }
   const onChangePollName = (e: any) => {
     setPollName(e.target.value);
   }
 
   const submitNewPoll = () => {
-    console.log("Submited");
-    console.log(pollName);
-    pollCandidateList?.map(item => {
-      console.log(item);
-    })
-    setSendData({
+    setSubmitData({
       "pollName": pollName,
-      "pollCandidateList": pollCandidateList,
+      "pollCandidateList": pollCandidateList
     })
-    console.log(`sendData: ${sendData}`);
+    
+    console.log(JSON.stringify(submitData));
   }
 
   return (
-    <div className="grid grid-rows-4 pt-5 pb-5">
+    <div className="grid grid-rows-5 pt-5 pb-5">
       <div className="grid grid-cols-1 w-full text-center self-center">
         <h1 className="text-6xl">새로운 투표</h1>
       </div>
@@ -54,19 +52,25 @@ export default function Page() {
           <div className="col-1 text-center self-center">
             <h3 className="text-4xl">후보 목록</h3>
           </div>
-          <div className="col-1 text-center self-center">
-            <h4 className="text-3xl">후보 1</h4>
+          <div className="col-1 text-center self-center overflow-auto h-32">
+          {
+            pollCandidateList?.map((item, index) => (
+              <div className="col-1 items-center gap-2">
+                <h3 className="text-3xl">{item}</h3>
+              </div>                
+            ))
+          }
           </div>
-          <div className="col-1 text-center self-center hover:font-bold">
-            <h6 className="text-xl">
-              <Link href={"/poll/createpoll/addcandidate"}>후보 추가</Link> 
-            </h6>
-          </div>         
+        </div>
+      </div>
+      <div className="grid grid-cols-4 text-center self-center">
+        <div className="col-start-2 col-span-2 bg-slate-400 hover:bg-slate-800 hover:text-white">
+          <Link href={"/poll/createpoll/addcandidate"}>후보 추가</Link>
         </div>
       </div>
       <div className="grid grid-cols-4 text-center self-center">
         <div className="col-start-2 col-span-2 bg-slate-400 hover:bg-slate-800 hover:text-white" onClick={submitNewPoll}>
-          투표 시작
+          투표 개시
         </div>
       </div>
     </div>
