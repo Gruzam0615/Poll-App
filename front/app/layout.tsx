@@ -31,8 +31,8 @@ export default function RootLayout({
       >
         <div className="container mx-auto">
           {children}
+          {modal}
         </div>
-        {modal}
       </body>
     </html>
   );

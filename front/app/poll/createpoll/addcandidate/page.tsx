@@ -1,7 +1,11 @@
-export default function Page() {
-    return(
+"use client";
+
+import AddCandidate from "@/app/ui/addcandidate";
+
+export default function Page() {  
+    return (
         <>
-            <h1 className="text-6xl">후보 추가 페이지</h1>
+            <AddCandidate />
         </>
     );
 }

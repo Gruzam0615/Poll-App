@@ -48,7 +48,7 @@ export default function Page() {
         <div className="col-span-2">
           <TextInput id="polltitle" type="text" placeholder="" value={pollName} onChange={onChangePollName} required shadow />
         </div>
-      </div>      
+      </div>
       <div className="grid grid-cols-1 text-center self-center">
         <div className="grid-row">
           <div className="col-1 text-center self-center">
