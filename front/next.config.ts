@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
         {
           destination: "http://localhost:8080/ping/:path*",
           source: "/ping/:path*"
+        },
+        {
+          destination: "http://localhost:8080/poll/createPoll/:path*",
+          source: "/poll/createPoll/:path*"
+        },
+        {
+          destination: "http://localhost:8080/poll/:path*",
+          source: "/poll/:path*"
         }
       ]
   },

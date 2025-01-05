@@ -1,12 +1,16 @@
 "use client";
 
+import { CreatePoll } from "@/app/api/poll_server";
 import { candidateListAtom } from "@/app/store/pollingAtom";
 import { Button, Checkbox, Label, List, Radio, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Router from "next/router";
 import { useCallback, useRef, useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
 
   /**
    * pollName: 투표 이름
@@ -18,20 +22,40 @@ export default function Page() {
   const [ selectedCandidate, setSelectedCandidate ] = useState("");
   const [ submitData, setSubmitData ] = useState({
     "pollName": "",
-    "pollCandidateList": []
+    "pollCandidateList": new Array,
   });
 
   const onChangePollName = (e: any) => {
     setPollName(e.target.value);
   }
 
-  const submitNewPoll = () => {
-    setSubmitData({
-      "pollName": pollName,
-      "pollCandidateList": pollCandidateList
-    })
-    
-    console.log(JSON.stringify(submitData));
+  const submitNewPoll = () => {     
+    console.log(pollName + "\n" + pollCandidateList);
+
+    if(pollName.length === 0) {
+      alert("투표명을 입력해주세요.");
+    } else if(pollCandidateList.length === 0) {
+      alert("등록된 후보가 없습니다.");
+      router.refresh();
+    } else {
+      CreatePoll({
+        "pollName": pollName,
+        "pollCandidateList": pollCandidateList
+      }).then((res) => {
+        if(res.status == "200") {
+          alert("새로운 투표가 등록되었습니다.")
+          router.push("/poll")
+          setpollCandidateList([]);
+        }
+        else {
+          alert("새로운 투표 등록이 실패했습니다.")
+          router.refresh()
+        }
+      }).catch((err) => {
+        alert("오류 처음부터 다시 해주세요.")
+        router.refresh();
+      })
+    }
   }
 
   return (

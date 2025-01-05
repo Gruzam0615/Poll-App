@@ -4,11 +4,11 @@ import { Button, ListGroup } from "flowbite-react";
 import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Bar, BarChart, XAxis } from "recharts";
-import { pollResultAtom } from "@/app/store/pollingAtom";
 
 export default function Page() {
-  // const [ data, setData ] = useAtom(pollResultAtom);
+  const [ pollList, setPollList ] = useState([]);
 
   return (
     <div className="grid grid-rows-4 text-center items-baseline">
@@ -23,9 +23,10 @@ export default function Page() {
         </h1>
       </div>
       <div className="grid grid-cols-1 w-full p-5">
-        <h3 className="text-4xl hover:font-bold hover:bg-slate-300">
+        {/* <h3 className="text-4xl hover:font-bold hover:bg-slate-300">
           <Link href="#">투표 1</Link>
-        </h3>
+        </h3> */}
+
       </div>
       <div className="grid grid-cols-1 w-full p-5">
         <h5 className="text-2xl hover:font-bold hover:bg-slate-300">

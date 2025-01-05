@@ -15,8 +15,10 @@ export default function AddCandidate() {
     const onChangeValue = (e: any) => {
         setValue(e.target.value);
     }
+    
     const onClickValue = () => {
-        candidateList.push(value);
+        // candidateList.push(value);
+        setCandidateList([...candidateList, value]);
         setValue("");
         alert("추가되었습니다.");
         router.back();
