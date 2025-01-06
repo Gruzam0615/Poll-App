@@ -16,6 +16,7 @@ export default function Page() {
       const result = await findAllPoll();
       if(result.data != "false") {
         setPollList(result.data);
+        console.log(result.data);
       } else {
         setPollList([{"pollName": "No Poll"}]);
       }
@@ -42,7 +43,7 @@ export default function Page() {
         {
           pollList.map((item: any, index) => (
             <h3 key={index} className="text-4xl hover:font-bold hover:bg-slate-300">
-              <Link href="#">{item.pollName}</Link>
+              <Link href={`/poll/polling/${item.pollIndex}?pollName=${item.pollName}`} passHref>{item.pollName}</Link>
             </h3>
           ))
           ||

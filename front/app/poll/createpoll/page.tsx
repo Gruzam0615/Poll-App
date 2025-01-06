@@ -2,12 +2,11 @@
 
 import { CreatePoll } from "@/app/api/poll_server";
 import { candidateListAtom } from "@/app/store/pollingAtom";
-import { Button, Checkbox, Label, List, Radio, TextInput } from "flowbite-react";
+import { Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
   const router = useRouter();

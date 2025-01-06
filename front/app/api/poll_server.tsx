@@ -54,7 +54,7 @@ export async function findAllPoll() {
     console.log("Requested findAllPoll");
 
     const headers = new Headers();
-    headers.append("Content-Type", "application/json")
+    headers.append("Content-Type", "application/json");
 
     return await fetch("/poll/findAll", {
         method: "GET",
@@ -74,5 +74,31 @@ export async function findAllPoll() {
             "data": "false"
         }
     })
+}
 
+export async function findByPollIndex(body: any) {
+    console.log("Requested findByPollIndex");
+    console.log(JSON.stringify(body));
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return await fetch(`/poll/findByPollIndex?pollIndex=${body}`, {
+        method: "GET",
+        headers: headers,
+        mode: "cors",
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then((result) => {
+        return result;
+    })
+    .catch((err) => {
+        return {
+            "status": 500,
+            "message:": "failed",
+            "data": "false"
+        }
+    })
 }
