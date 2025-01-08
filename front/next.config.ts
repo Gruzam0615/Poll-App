@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         {
           destination: "http://localhost:8080/poll/findByPollIndex/:path*",
           source: "/poll/findByPollIndex/:path*"
+        },
+        {
+          destination: "http://localhost:8080/poll/doPoll/:path*",
+          source: "/poll/doPoll/:path*"
         }
       ]
   },

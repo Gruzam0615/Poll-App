@@ -2,11 +2,12 @@
 
 import { useAtom } from "jotai";
 import { Button, Label, Radio } from "flowbite-react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { findByPollIndex } from "@/app/api/poll_server";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { doPoll, findByPollIndex } from "@/app/api/poll_server";
 
 export default function Page() {
+    const router = useRouter();
     const pathname = usePathname();
     const params = useSearchParams();
     const [pollData, setPollData] = useState([]);
@@ -14,26 +15,29 @@ export default function Page() {
     const onSubmitAction = (event: any) => {
         event.preventDefault();
         const selectedValue = event.target.pollCandidates.value;
-        // console.log(event.target.pollCandidates.value);
+        console.log(event.target.pollCandidates.value);
         if(selectedValue === undefined || selectedValue === "") {
             alert("아무것도 선택하지 않았습니다.");
         } else {
-            // let tempNumber = Number(event.target.pollCandidates.value);
-            // console.log(`${typeof (tempNumber)}, ${tempNumber}`);
-            // const updatePollResult = pollResult.map((v, i) => {
-            //     if (i === tempNumber - 1) {
-            //         return {
-            //             "name": v.name,
-            //             "countValue": v.countValue + 1
-            //         }
-            //     } else {
-            //         return v;
-            //     }
-            // });
-            // setPollResult(updatePollResult);
-            // // alert(`투표 완료\npollResult: ${JSON.stringify(pollResult)}`)
-            // alert(`투표 완료`);
-            // router.push("/poll");
+            const pollIndex = pathname.split("/")[3];
+            doPoll({
+                "pollIndex": pollIndex,
+                "pollCandidateName": selectedValue
+            })
+            .then((res) => {
+                if(res.status == "200") {
+                    alert("투표가 완료되었습니다.")
+                    router.push("/poll");
+                } else {
+                    alert("투표에 실패했습니다.")
+                    router.refresh();
+                }
+            })
+            .catch((err) => {
+                alert("오류 처음부터 다시 시도해주세요.");
+                router.refresh();
+            })
+            
         }
     }
 

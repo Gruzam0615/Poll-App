@@ -40,7 +40,8 @@ export default function Page() {
       CreatePoll({
         "pollName": pollName,
         "pollCandidateList": pollCandidateList
-      }).then((res) => {
+      })
+      .then((res) => {
         if(res.status == "200") {
           alert("새로운 투표가 등록되었습니다.")
           router.push("/poll")
@@ -50,8 +51,9 @@ export default function Page() {
           alert("새로운 투표 등록이 실패했습니다.")
           router.refresh()
         }
-      }).catch((err) => {
-        alert("오류 처음부터 다시 해주세요.")
+      })
+      .catch((err) => {
+        alert("오류 처음부터 다시 해주세요.");
         router.refresh();
       })
     }
