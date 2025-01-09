@@ -5,8 +5,7 @@ import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Bar, BarChart, XAxis } from "recharts";
-import { findAllPoll } from "../api/poll_server";
+import { findAllPoll } from "@/app/api/poll_server";
 
 export default function Page() {
   const [pollList, setPollList] = useState<object[]>([]);
@@ -26,25 +25,25 @@ export default function Page() {
 
   return (
     <div className="grid grid-rows-3 text-center">
-      {/* recharts */}
-      {/* <BarChart className="" width={1080} height={360} data={data} barSize={60}>
-        <Bar dataKey="countValue" fill="#0AE" label={{ position: "center" }}/>
-        <XAxis dataKey="name" axisLine={false} tickLine={false} />
-      </BarChart> */}
       <div className="grid grid-cols-1 w-full self-center">
         <h1 className="text-6xl">
           <Link href="#">투표 목록</Link>
         </h1>
       </div>
       <div className="grid grid-cols-1 w-full h-32 overflow-auto self-center">
-        {/* <h3 className="text-4xl hover:font-bold hover:bg-slate-300">
-          <Link href="#">투표 1</Link>
-        </h3> */}
         {
           pollList.map((item: any, index) => (
-            <h3 key={index} className="text-4xl hover:font-bold hover:bg-slate-300">
-              <Link href={`/poll/polling/${item.pollIndex}?pollName=${item.pollName}`} passHref>{item.pollName}</Link>
-            </h3>
+            <div className="grid grid-cols-5 hover:font-bold">
+              <div className="grid col-span-3 self-center">
+                <h3 key={index} className="text-4xl">{item.pollName}</h3>
+              </div>
+              <div className="grid grid-cols-1 self-center hover:bg-slate-300">
+                <Link href={`/poll/polling/${item.pollIndex}?pollName=${item.pollName}`} passHref>투표하기</Link>
+              </div>
+              <div className="grid grid-cols-1 self-center hover:bg-slate-300">
+                <Link href={`/poll/result/${item.pollIndex}?pollName=${item.pollName}`} passHref>결과보기</Link>
+              </div>
+            </div>
           ))
           ||
           <h3 className="text-4xl">No Poll</h3>
