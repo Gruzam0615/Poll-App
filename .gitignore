@@ -82,3 +82,13 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### back ###
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+*.properties
+*.yml
